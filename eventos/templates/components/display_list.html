@@ -1,0 +1,20 @@
+<div class="rounded dropdown filter"> 
+    <button class="bg-dark text-white btn btn-secondary dropdown-toggle fs-5" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Organizadores:
+    </button>
+    <div class="dropdown-menu w-100">
+        {% for organizador in organizadores %}
+            <a href="/eventos/profile/{{ organizador.id }}" class="dropdown-item">{{ organizador.username }}</a>
+        {% endfor %}
+    </div>
+</div>
+<div class="rounded dropdown filter"> 
+    <button class="bg-dark text-white btn btn-secondary dropdown-toggle fs-5" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Ordenar por:
+    </button>
+    <div class="dropdown-menu w-100">
+        <a href="?order_by=nombre" class="list-group-item list-group-item-action dropdown-item">Nombre</a>
+        <a href="?order_by=fecha" class="list-group-item list-group-item-action dropdown-item">Fecha</a>
+        <a href="?order_by=publicacion" class="list-group-item list-group-item-action dropdown-item">Publicacion</a>
+    </div>
+</div>

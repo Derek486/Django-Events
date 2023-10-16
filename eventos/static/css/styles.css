@@ -1,0 +1,58 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/poppins/Poppins-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.card--event {
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.card--event:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+@media screen and (max-width: 576px) {
+    .card--event, .dropdown {
+        margin-inline: auto;
+    }
+}
+
+.title {
+    text-decoration: none;
+    color: inherit;
+}
+
+@media screen and (max-width: 1200px) {
+    .content {
+        display: flex;
+        flex-direction: column-reverse;
+        
+    }
+    .content-filter {
+        flex-direction: row;
+    }
+}
+
+.filter button {
+    width: 100%;
+}
+
+@media screen and (max-width: 412px) {
+    .filter {
+        width: 100%;
+        margin: 0;
+    }
+}

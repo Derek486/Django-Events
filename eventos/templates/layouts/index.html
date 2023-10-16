@@ -1,0 +1,15 @@
+{% extends 'layouts/default.html' %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+    <div class="d-flex flex-xl-row gap-3 content">
+        {% include 'components/list_eventos.html' %}
+        <div class="d-flex flex-row flex-wrap flex-xl-column col-12 col-xl-2 gap-3 ms-xl-auto content-filter">
+            {% with organizadores=organizadores %}
+                {% include 'components/display_list.html' %}
+            {% endwith %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,100 @@
+<form class="card w-100"
+{% if evento.autor != request.user %}
+    {% if participando %}
+        action="/eventos/{{ evento.id }}/abandonar/{{ request.user.id }}"
+    {% else %}
+        action="/eventos/{{ evento.id }}/participar"
+    {% endif %}
+{% else %}
+    action="/eventos/{{ evento.id }}"
+{% endif %}
+method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <section class="card-header">
+        <h4 class="text-center">Datos de evento</h4>
+    </section>
+    <section class="card-body d-flex flex-column gap-3">
+        {% if evento.autor != request.user %}
+        <div class="form-group d-flex">
+            <span class="input-group-text col-4 mh-25">Organizador</span>
+            <a href="{% url 'eventos.profile' id=evento.autor.id %}" id="organizador_evento" class="form-control link-outline">
+                {{ evento.autor.username }}
+            </a>
+        </div>
+        {% endif %}
+        <div class="form-group d-flex">
+            <label for="nombre_evento" class="input-group-text col-4 mh-25">Nombre</label>
+            <input type="text" name="nombre" id="nombre_evento" class="form-control"
+                {% if evento.nombre %}
+                    value="{{ evento.nombre }}"
+                {% endif %}
+                {% if evento.autor != request.user %}
+                    disabled    
+                {% endif %}
+            >
+            
+        </div>
+        {% if errors.nombre %}
+            {% for error in errors.nombre %}
+                <div class="bg-danger text-white rounded py-1 px-3">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        <div class="form-group">
+            <label for="descripcion_evento" class="input-group-text">Descripcion</label>
+            <textarea name="descripcion" id="descripcion_evento" class="form-control"
+                {% if evento.autor != request.user %}
+                    disabled    
+                {% endif %}
+            >{% if evento.descripcion %}{{ evento.descripcion }}{% endif %}</textarea>
+        </div>
+        {% if errors.descripcion %}
+            {% for error in errors.descripcion %}
+                <div class="bg-danger text-white rounded py-1 px-3">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        <div class="form-group d-flex">
+            <label for="fecha_evento" class="input-group-text col-4 mh-25">Fecha</label>
+            <input type="date" name="fecha" id="fecha_evento" class="form-control"
+                {% if evento.fecha %}
+                    value="{{ evento.fecha }}"
+                {% endif %}
+                {% if evento.autor != request.user %}
+                    disabled    
+                {% endif %}
+            >
+        </div>
+        {% if errors.fecha %}
+            {% for error in errors.fecha %}
+                <div class="bg-danger text-white rounded py-1 px-3">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        {% if evento.autor == request.user %}    
+            <div class="form-group d-flex align-items-center">
+                <label for="portada_evento" class="input-group-text col-4 mh-25">Portada</label>
+                <input type="file" name="portada" id="portada_evento" class="form-control form-control-sm d-flex mx-2">
+            </div>
+        {% endif %}
+        {% if evento.portada %}
+            <img src="
+                /media/{{evento.portada}}
+                " class="card-img-bottom" alt="Imagen de evento {{ evento.nombre }}">
+        {% endif %}
+    </section>
+    <section class="card-footer d-flex flex-row-reverse gap-2">
+        <a href="{% url 'eventos.index' %}" class="btn btn-dark">Volver</a>
+        {% if evento.autor == request.user %}
+            <a href="/eventos/{{ evento.id }}/delete" class="btn btn-danger">Eliminar</a>
+        {% endif %}
+        <button class="btn btn-primary" type="submit">
+            {% if evento.autor != request.user %}
+                {% if participando %}
+                    Dejar de participar
+                {% else %}
+                    Participar
+                {% endif %}
+            {% else %}  
+                Actualizar
+            {% endif %}
+        </button>
+    </section>
+</form>

@@ -1,0 +1,13 @@
+{% extends 'layouts/default.html' %}
+
+{% block navbar %}
+    {% with title='Creacion de evento' %}
+        {% include 'components/navbar.html' %}
+    {% endwith %}
+{% endblock %}
+
+{% block content %}
+    <div class="mx-auto col-12 col-md-6 col-xl-6">
+        {% include 'components/form_evento.html' %}
+    </div>
+{% endblock %}

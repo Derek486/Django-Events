@@ -1,0 +1,25 @@
+<div class="d-flex flex-wrap mb-4">
+    {% for evento in eventos %}
+        <a class="card card--event col-11 col-sm-6 col-md-4 col-xl-3" href="/eventos/{{ evento.id }}">
+            <img src="
+                {% if evento.portada %}
+                    /media/{{evento.portada}}
+                {% else %}
+                    /media/portadas_eventos/default/blank.jpg
+                {% endif %}
+            " class="card-img-top" alt="Imagen de evento">
+            <div class="card-body">
+                <h4 class="card-title">{{ evento.nombre }}</h4>
+                <p class="card-text">
+                    {{ evento.descripcion }}
+                </p>
+                <p class="card-text">
+                    Fecha de evento: {{ evento.fecha|date:'Y-m-d' }}
+                </p>
+                <p class="card-text">
+                    Publicacion: {{ evento.publicacion|date:'Y-m-d H:i' }}
+                </p>
+            </div>
+        </a>
+    {% endfor %}
+</div>

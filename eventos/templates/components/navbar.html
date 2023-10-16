@@ -1,0 +1,61 @@
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        {% if not user.is_anonymous  %}
+            <a class="navbar-brand fs-2" href="{% url 'eventos.index' %}">Django events</a>
+            <div class="text-light d-flex gap-2">   
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end text-light bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel" style="width: 320px;">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
+                            {% if autor and autor != request.user %}
+                                Eventos de {{ autor.username }}
+                            {% else %}
+                                {{ title }} {{ organizador }}
+                            {% endif %}
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body bg-dark">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link
+                                {% if '/eventos/' == request.path %}
+                                    active
+                                {% endif %}
+                                "href="{% url 'eventos.index' %}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link
+                                {% if '/eventos/profile/' in request.path and autor == request.user %}
+                                    active
+                                {% endif %}
+                                " href="/eventos/profile/">
+                                    Mis eventos
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link
+                                {% if '/eventos/create/' == request.path %}
+                                    active
+                                {% endif %}
+                                " href="{% url 'eventos.create' %}">
+                                    Crear un evento
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'eventos.logout' %}">Cerrar sesion</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <a class="navbar-brand" href="#">Django events</a>
+            <div class="text-light">
+                <p class="m-0 fs-4">{{ title }}</p>
+            </div>
+        {% endif %}
+    </div>
+</nav>

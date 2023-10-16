@@ -1,0 +1,35 @@
+{% extends 'layouts/default.html' %}
+
+{% block navbar %}
+    {% with title='Login' %}
+        {% include 'components/navbar.html' %}
+    {% endwith %}
+{% endblock %}
+
+{% block content %}
+    <div class="row d-flex flex-column">
+        {% if form.non_field_errors %}
+            <div class='card md-col-4 sm-col-6 col-4 mx-auto my-2 py-2 bg-danger text-light'>
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <form action="{% url 'eventos.login' %}" method="post" class="card md-col-4 sm-col-6 col-4 mx-auto">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Nombre de Usuario</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Ingresa tu nombre de usuario" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Su contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+        </form>
+        <div class="md-col-4 sm-col-6 col-4 d-flex gap-2 align-items-center mx-auto mt-4 justify-content-center">
+            <p class="m-0 fs-6">¿ No tienes una cuenta ?</p>
+            <a href="{% url 'eventos.register' %}">Crear una</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'layouts/default.html' %}
+
+{% block navbar %}
+    {% with title='Register' %}
+        {% include 'components/navbar.html' %}
+    {% endwith %}
+{% endblock %}
+
+{% block content %}
+    <div class="row d-flex flex-column">
+        <form action="{% url 'eventos.register' %}" method="post" class="card md-col-4 sm-col-6 col-4 mx-auto mt-5">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Nombre de Usuario</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Ingresa tu nombre de usuario">
+                {% if errors.username %}
+                    {% for error in errors.username %}
+                    <div class="w-100 bg-danger text-light rounded px-3 py-1 mt-1">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Su email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Ingresa tu email">
+                {% if errors.email %}
+                    {% for error in errors.email %}
+                    <div class="w-100 bg-danger text-light rounded px-3 py-1 mt-1">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Su contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Ingresa tu contraseña">
+            </div>
+            <div class="mb-3">
+                <label for="password_confirmation" class="form-label">Repita su contraseña</label>
+                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirma tu contraseña">
+                {% if errors.password %}
+                    {% for error in errors.password %}
+                    <div class="w-100 bg-danger text-light rounded px-3 py-1 mt-1">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+        </form>
+        <div class="md-col-4 sm-col-6 col-4 d-flex gap-2 align-items-center mx-auto mt-4 justify-content-center">
+            <p class="m-0 fs-6">¿ Ya tienes una cuenta ?</p>
+            <a href="{% url 'eventos.login' %}">Iniciar sesion</a>
+        </div>
+    </div>
+{% endblock %}
